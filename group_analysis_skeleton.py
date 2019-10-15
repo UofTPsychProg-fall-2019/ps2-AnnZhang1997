@@ -113,22 +113,25 @@ mrt_bp = np.mean(data[np.argsort(data[:, 2], axis = 0)][46:], axis = 0)[4]
 # use for loops, indexing/slicing, or both!
 # (hint: might be easier to slice data into separate words and faces datasets)
 #
-...
-# TO DO
+
+
 # Ann Z: sort data based on words or faces
 sorted_data = data[np.argsort(data[:, 1], axis = 0)]
 words_data = sorted_data[0: 46]
 faces_data = sorted_data[46:]
+
 # Ann Z: sort words and faces data based on pairing
 words_wp = words_data[np.argsort(words_data[:, 2], axis = 0)][0:23]
 words_bp = words_data[np.argsort(words_data[:, 2], axis = 0)][23:]
 faces_wp = faces_data[np.argsort(faces_data[:, 2], axis = 0)][0:23]
 faces_bp = faces_data[np.argsort(faces_data[:, 2], axis = 0)][23:]
 
+# Ann Z: Calculated the mean
 mrt_words_wp = np.mean(words_wp, axis = 0)[4]
 mrt_words_bp = np.mean(words_bp, axis = 0)[4]
 mrt_faces_wp = np.mean(faces_wp, axis = 0)[4]
 mrt_faces_bp = np.mean(faces_bp, axis = 0)[4]
+
 # words - white/pleasant: 478.4ms
 # words - black/pleasant: 500.3ms
 # faces - white/pleasant: 460.8ms
@@ -139,7 +142,7 @@ mrt_faces_bp = np.mean(faces_bp, axis = 0)[4]
 # paired-sample t-test: scipy.stats.ttest_rel()
 #
 import scipy.stats
-# because this is dependent sample, must sort the list so that subjects
+# because this is a dependent t-test, must sort the list so that subjects
 # correspond with each other
 words_wp = words_wp[np.argsort(words_wp[:, 0], axis = 0)]
 words_bp = words_bp[np.argsort(words_bp[:, 0], axis = 0)]
@@ -158,7 +161,7 @@ faces_p = scipy.stats.ttest_rel(faces_wp, faces_bp)[1][4]
 #%%
 # print out averages and t-test results
 # (hint: use the ''.format() method to create formatted strings)
-#
+
 print('\nOVERALL: {:.2f}%, {:.1f} ms'.format(100*acc_avg,mrt_avg))
 print('\nSTIMULUS-WORDS: {:.2f}%, {:.1f} ms'.format(100*acc_words,mrt_words))
 print('\nSTIMULUS-FACES: {:.2f}%, {:.1f} ms'.format(100*acc_faces,mrt_faces))
@@ -168,5 +171,5 @@ print('\nCONDITION-WORDS+WHITE/PLEASANT: {:.1f} ms'.format(mrt_words_wp))
 print('\nCONDITION-WORDS+BLACK/PLEASANT: {:.1f} ms'.format(mrt_words_bp))
 print('\nCONDITION-FACES+WHITE/PLEASANT: {:.1f} ms'.format(mrt_faces_wp))
 print('\nCONDITION-FACES+BLACK/PLEASANT: {:.1f} ms'.format(mrt_faces_bp))
-print('\nTTEST-WORDS: t = {:.2f} , p = {:.2}'.format(words_t, words_p))
-print('\nTTEST-FACES: t = {:.2f} , p = {:.2}'.format(faces_t, faces_p))
+print('\nTTEST-WORDS: t={:.2f} , p={:.2}'.format(words_t, words_p))
+print('\nTTEST-FACES: t={:.2f} , p={:.2}'.format(faces_t, faces_p))
